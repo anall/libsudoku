@@ -1,0 +1,4 @@
+bld
+.DS_Store
+libsudoku.a
+.sconsign.dblite
