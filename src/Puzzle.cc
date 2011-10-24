@@ -23,10 +23,10 @@
 #include <sudoku/exception/InvalidLayout.h>
 
 namespace sudoku {
-    Cell* Puzzle::makeCellForPuzzle(Position pos) {
+    Cell* Puzzle::makeCellForPuzzle(Ref<plugin::Cell> &cellPlugin, Position pos) {
         Cell *cl = 0;
-        if ( _cellPlugin.exists() )
-            cl = _cellPlugin->makeCellForPuzzle(this,pos);
+        if ( cellPlugin.exists() )
+            cl = cellPlugin->makeCellForPuzzle(this,pos);
         if ( cl == 0 )
             cl = new Cell(pos, this);
         cl->resetPencil();
@@ -35,26 +35,19 @@ namespace sudoku {
 
     Puzzle::Puzzle(int size, Ref<plugin::Cell> cellPlugin, Ref<plugin::Square> squarePlugin, Ref<plugin::Puzzle> puzzlePlugin ) :
             _size(size), _ready(false) {
-        if ( cellPlugin.exists() )
-            _cellPlugin = cellPlugin->clone();
 
-        if ( squarePlugin.exists() )
-            _squarePlugin = squarePlugin->clone();
-        else
-            _squarePlugin = new plugin::square::Standard();
+        if ( ! squarePlugin.exists() )
+            squarePlugin = new plugin::square::Standard();
 
-        if ( puzzlePlugin.exists() )
-            _puzzlePlugin = puzzlePlugin->clone();
-
-        if ( _cellPlugin.exists() ) _cellPlugin->validateForPuzzle(this);
-        if ( _squarePlugin.exists() ) _squarePlugin->validateForPuzzle(this);
-        if ( _puzzlePlugin.exists() ) _puzzlePlugin->validateForPuzzle(this);
+        if ( cellPlugin.exists() ) cellPlugin->validateForPuzzle(this);
+        if ( squarePlugin.exists() ) squarePlugin->validateForPuzzle(this);
+        if ( puzzlePlugin.exists() ) puzzlePlugin->validateForPuzzle(this);
 
         for ( int r = 0; r < _size; r++ ) {
             CellSet *csR = new CellSet(this);
             for ( int c = 0; c < _size; c++ ) {
                 Position p = Position(r,c);
-                Cell *cl = makeCellForPuzzle(p);
+                Cell *cl = makeCellForPuzzle(cellPlugin, p);
                 _cells.push_back(cl);
                 cl->registerForCellSet(csR);
                 csR->push_back(p);
@@ -73,7 +66,7 @@ namespace sudoku {
             _cellsets.push_back(csC);
         }
 
-        _squarePlugin->addSquareSets(this);
+        squarePlugin->addSquareSets(this);
 
         // Ensure every cell has the same number of cellsets
         int cSets = _cells.front()->cellsets().size();
@@ -82,11 +75,11 @@ namespace sudoku {
             if ( tCt != cSets ) throw exception::InvalidLayout("Cellset count mismatch");
         }
 
-        if ( _puzzlePlugin.exists() )
-            _puzzlePlugin->addExtraSets(this);
+        if ( puzzlePlugin.exists() )
+            puzzlePlugin->addExtraSets(this);
     }
 
-    Puzzle::Puzzle(Ref<Puzzle> other ) : _size(other->_size), _cellPlugin(other->_cellPlugin), _squarePlugin(other->_squarePlugin), _puzzlePlugin(other->_puzzlePlugin), _ready(false) {
+    Puzzle::Puzzle(Ref<Puzzle> other ) : _size(other->_size), _ready(false) {
         CloneHelper ch(this);
         _cellsets = ch.cloneCellSets(other->_cellsets);
         _cells = ch.cloneCells(other->_cells);

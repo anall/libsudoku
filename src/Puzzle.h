@@ -33,11 +33,7 @@ namespace sudoku {
         std::vector<Cell *> _cells;
         std::vector<CellSet *> _cellsets;
 
-        Ref<plugin::Cell> _cellPlugin;
-        Ref<plugin::Square> _squarePlugin;
-        Ref<plugin::Puzzle> _puzzlePlugin;
-
-        virtual Cell* makeCellForPuzzle(Position pos);
+        virtual Cell* makeCellForPuzzle(Ref<plugin::Cell> &cellPlugin, Position pos);
 
         bool _ready;
     public:
