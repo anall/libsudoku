@@ -35,6 +35,9 @@ namespace sudoku {
 
     Puzzle::Puzzle(int size, Ref<plugin::Cell> cellPlugin, Ref<plugin::Square> squarePlugin, Ref<plugin::Puzzle> puzzlePlugin ) :
             _size(size), _ready(false) {
+        if ( _size < 2 ) {
+            throw exception::InvalidLayout("Puzzle must have at least 2 size");
+        }
 
         if ( ! squarePlugin.exists() )
             squarePlugin = new plugin::square::Standard();
