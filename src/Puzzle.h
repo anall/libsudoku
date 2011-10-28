@@ -75,7 +75,7 @@ namespace sudoku {
         const Cell *operator[](Position pos) const { return cell(pos); }
 
         Cell *cell(Position pos) { return _cells[pos.idForSize(_size)]; }
-        const Cell *cell(Position pos) const { _cells[pos.idForSize(_size)];  }
+        const Cell *cell(Position pos) const { return _cells[pos.idForSize(_size)];  }
 
         void resetPencil();
         void disqualifyPencil();

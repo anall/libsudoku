@@ -19,19 +19,20 @@
 #include <string>
 #include <sudoku/exception/Exception.h>
 #include <sudoku/Position.h>
+#include <malloc.h>
 
 namespace sudoku {
     namespace exception {
         class InvalidCellValue : public Exception {
         private:
-            std::string _what;
+            const char *_what;
             sudoku::Position _pos;
             int _value;
         public:
             InvalidCellValue(const char *what, sudoku::Position &pos, int value) throw();
-            virtual ~InvalidCellValue() throw() {}
+            virtual ~InvalidCellValue() throw() { delete[]  _what; }
 
-            virtual const char* what() const throw() { return _what.c_str(); }
+            virtual const char* what() const throw() { return _what; }
             virtual const sudoku::Position& pos() const throw() { return _pos; }
             virtual const int value() const throw() { return _value; }
         };

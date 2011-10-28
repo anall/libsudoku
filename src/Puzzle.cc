@@ -20,6 +20,7 @@
 #include <sudoku/plugin/square/Standard.h>
 #include <sudoku/CloneHelper.h>
 
+#include <sudoku/exception/Exception.h>
 #include <sudoku/exception/InvalidLayout.h>
 
 namespace sudoku {
@@ -35,6 +36,10 @@ namespace sudoku {
 
     Puzzle::Puzzle(int size, Ref<plugin::Cell> cellPlugin, Ref<plugin::Square> squarePlugin, Ref<plugin::Puzzle> puzzlePlugin ) :
             _size(size), _ready(false) {
+
+        if ( _size <= 0 ) {
+            throw sudoku::exception::Exception();
+        }
 
         if ( ! squarePlugin.exists() )
             squarePlugin = new plugin::square::Standard();

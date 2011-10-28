@@ -15,13 +15,12 @@
  */
 
 #include <sudoku/exception/OutOfRange.h>
-#include <sstream>
 
 #define BUFFER_LENGTH 256
 
 namespace sudoku {namespace exception {
     OutOfRange::OutOfRange(const char *what, int value, int min, int max) throw() : sudoku::exception::Exception(), _value(value), _min(min), _max(max) {
-        char tmp[BUFFER_LENGTH];
+        char *tmp = new char[ BUFFER_LENGTH ];
         if ( value < min )
             snprintf(tmp,BUFFER_LENGTH,"%s: %i < %i (minumum value)",what,value,min);
         else if ( value > max )
