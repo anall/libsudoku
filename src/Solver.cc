@@ -163,7 +163,7 @@ namespace sudoku {
         memset(cts,0,sizeof(int) * sz);
         memset(cls,0,sizeof(Cell *) * sz);
         memset(cla,0,sizeof(Cell *) * sz);
-        assert ( sz == cs->size() && "Cellset is the wrong length!" );
+        if ( sz != cs->size() ) return 0;
         for ( it = cs->begin(); it < cs->end(); it++ ) {
             Cell *ccl = pz->cell(*it);
             int ct = 0;
@@ -171,7 +171,7 @@ namespace sudoku {
 
             // This is a gaurd against any problems!
             if ( ( v = ccl->value() ) != 0 ) {
-                cts[v-1] = 100;
+                cts[v-1] = sz + 1;
                 continue;
             }
 
