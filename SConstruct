@@ -30,9 +30,6 @@ except:
 
 rdata = {}
 
-if ( opts.has_key('rdata') ):
-    rdata = opts['rdata']
-
 env.Append(CPPPATH=['bld'])
 Export('env')
 Export('rdata')

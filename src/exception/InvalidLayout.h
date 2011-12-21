@@ -23,9 +23,10 @@ namespace sudoku {
     namespace exception {
         class InvalidLayout : public Exception {
         private:
+            std::string _what;
         public:
             InvalidLayout(const char *what) throw();
-            virtual ~InvalidLayout() throw() { }
+            virtual ~InvalidLayout() throw() {}
         };
     }
 }

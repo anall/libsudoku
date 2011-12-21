@@ -16,12 +16,13 @@
 
 #include <sudoku/exception/InvalidCellValue.h>
 #include <sudoku/Position.h>
+#include <sstream>
 
 #define BUFFER_LENGTH 256
 
 namespace sudoku {namespace exception {
     InvalidCellValue::InvalidCellValue(const char *what, sudoku::Position &pos, int value) throw() : sudoku::exception::Exception(), _pos(pos), _value(value) {
-        char *tmp = new char[ BUFFER_LENGTH ];
+        char tmp[BUFFER_LENGTH];
         snprintf(tmp,BUFFER_LENGTH,"%s: %i,%i: %i",what,(int)pos.r(),(int)pos.c(),value);
         _what = tmp;
     }

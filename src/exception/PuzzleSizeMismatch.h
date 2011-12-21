@@ -18,19 +18,18 @@
 #define __SUDOKU__EXCEPTION__PUZZLESIZEMISMATCH_H__
 #include <string>
 #include <sudoku/exception/Exception.h>
-#include <malloc.h>
 
 namespace sudoku {
     namespace exception {
         class PuzzleSizeMismatch : public Exception {
         private:
-            char *_what;
+            std::string _what;
             int _pz, _ot;
         public:
             PuzzleSizeMismatch(const char *what, int pz, int ot) throw();
-            virtual ~PuzzleSizeMismatch() throw() { delete[] _what; }
+            virtual ~PuzzleSizeMismatch() throw() {}
 
-            virtual const char* what() const throw() { return _what; }
+            virtual const char* what() const throw() { return _what.c_str(); }
             virtual const int pz() const throw() { return _pz; }
             virtual const int ot() const throw() { return _ot; }
         };

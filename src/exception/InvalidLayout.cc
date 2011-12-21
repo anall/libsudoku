@@ -18,6 +18,6 @@
 
 namespace sudoku {namespace exception {
     InvalidLayout::InvalidLayout(const char *what) throw() : sudoku::exception::Exception() {
-        //_what = what;
+        _what = what;
     }
 }}

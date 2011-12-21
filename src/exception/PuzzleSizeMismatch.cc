@@ -15,12 +15,13 @@
  */
 
 #include <sudoku/exception/PuzzleSizeMismatch.h>
+#include <sstream>
 
 #define BUFFER_LENGTH 256
 
 namespace sudoku {namespace exception {
     PuzzleSizeMismatch::PuzzleSizeMismatch(const char *what, int pz, int ot) throw() : sudoku::exception::Exception(), _pz(pz), _ot(ot) {
-        char *tmp = new char[ BUFFER_LENGTH ];
+        char tmp[BUFFER_LENGTH];
         snprintf(tmp,BUFFER_LENGTH,"%s: %i (puzzle), %i (other)",what,pz,ot);
         _what = tmp;
     }
