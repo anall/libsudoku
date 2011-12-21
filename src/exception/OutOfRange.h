@@ -23,13 +23,13 @@ namespace sudoku {
     namespace exception {
         class OutOfRange : public Exception {
         private:
-            std::string _what;
+            const char *_what;
             int _value, _min, _max;
         public:
             OutOfRange(const char *what, int value, int min, int max) throw();
-            virtual ~OutOfRange() throw() {}
+            virtual ~OutOfRange() throw() { delete[] _what; }
 
-            virtual const char* what() const throw() { return _what.c_str(); }
+            virtual const char* what() const throw() { return _what; }
             virtual const int value() const throw() { return _value; }
             virtual const int min() const throw() { return _min; }
             virtual const int max() const throw() { return _max; }

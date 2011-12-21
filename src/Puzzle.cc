@@ -20,6 +20,7 @@
 #include <sudoku/plugin/square/Standard.h>
 #include <sudoku/CloneHelper.h>
 
+#include <sudoku/exception/Exception.h>
 #include <sudoku/exception/InvalidLayout.h>
 
 namespace sudoku {
@@ -37,6 +38,10 @@ namespace sudoku {
             _size(size), _ready(false) {
         if ( _size < 2 ) {
             throw exception::InvalidLayout("Puzzle must have at least 2 size");
+        }
+
+        if ( _size <= 0 ) {
+            throw sudoku::exception::Exception();
         }
 
         if ( ! squarePlugin.exists() )

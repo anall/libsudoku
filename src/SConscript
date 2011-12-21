@@ -43,4 +43,6 @@ files = [
 
 Import('rdata')
 
-rdata['lib'] = env.StaticLibrary('../../sudoku', files )
+rdata['lib-files'] = env.Object(files);
+
+rdata['lib'] = env.StaticLibrary('../../sudoku', rdata['lib-files'] )
