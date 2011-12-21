@@ -12,7 +12,7 @@ namespace sudoku {
             Square();
             virtual ~Square();
 
-            virtual void validateForPuzzle(sudoku::Puzzle *) throw(sudoku::exception::Exception){ return; }
+            virtual void validateForPuzzle(sudoku::Puzzle *) { return; }
             virtual void addSquareSets(sudoku::Puzzle *pz) = 0;
 
             virtual Ref<Square> clone() = 0;

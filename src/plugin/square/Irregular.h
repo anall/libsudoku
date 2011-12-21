@@ -16,7 +16,7 @@ namespace sudoku {
 
             void addSquare(std::vector<Position> &sq);
 
-            virtual void validateForPuzzle(sudoku::Puzzle *puzzle) throw(sudoku::exception::Exception);
+            virtual void validateForPuzzle(sudoku::Puzzle *puzzle);
             virtual void addSquareSets(sudoku::Puzzle *pz);
 
             virtual Ref<Square> clone() {

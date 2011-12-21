@@ -55,7 +55,7 @@ namespace sudoku {namespace plugin {namespace square {
         }
     }
 
-    void Standard::validateForPuzzle(sudoku::Puzzle *pz) throw(sudoku::exception::Exception){
+    void Standard::validateForPuzzle(sudoku::Puzzle *pz) {
         int size = pz->size();
         float sqrt_sz_f = sqrt((float)size);
         int sqrt_sz = (int)sqrt_sz_f;

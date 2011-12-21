@@ -12,7 +12,7 @@ namespace sudoku {namespace plugin {namespace square {
         _squares.push_back(sq);
     }
 
-    void Irregular::validateForPuzzle(sudoku::Puzzle *pz) throw(sudoku::exception::Exception){
+    void Irregular::validateForPuzzle(sudoku::Puzzle *pz) {
         unsigned int sz = pz->size();
         if ( _squares.size() != sz ) {
             throw sudoku::exception::PuzzleSizeMismatch("Insufficient squares",sz,_squares.size());
